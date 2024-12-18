@@ -169,6 +169,13 @@ void printLinkList(Node* head)
 	std::cout << std::endl;
 }
 
+void printNodeInLinkList(Node* node)
+{
+	std::cout << "->";
+	std::cout << node->m_data << "->";
+	std::cout << std::endl;
+}
+
 // SinglyLinkedlist operations insertion problems
 void TestLinkedListInsertionProblems()
 {
@@ -206,17 +213,35 @@ void TestLinkedListDeletionProblems()
 void TestLinkedListProblems()
 {
 	Node* head = new Node(1);
-	insertAtEnd(head, 2);
-	insertAtEnd(head, 3);
-	insertAtEnd(head, 4);
-	insertAtEnd(head, 5);
-	insertAtEnd(head, 6);
-	insertAtEnd(head, 7);
-	insertAtEnd(head, 8);
+	if (1)
+	{
+		insertAtEnd(head, 2);
+		insertAtEnd(head, 3);
+		insertAtEnd(head, 4);
+		insertAtEnd(head, 5);
+		insertAtEnd(head, 6);
+		insertAtEnd(head, 7);
+		insertAtEnd(head, 8);
 
-	printLinkList(head);
-	head = RemoveEveryKthNode(head, 3);
-	printLinkList(head);
+		printLinkList(head);
+		//head = RemoveEveryKthNode(head, 3);
+
+		Node* node = ReturnMiddleNode(head);
+		printNodeInLinkList(node);
+	}
+
+	if (0)
+	{
+		head->m_nextNode = new Node(2);
+		head->m_nextNode->m_nextNode = new Node(3);
+		head->m_nextNode->m_nextNode->m_nextNode = new Node(4);
+		head->m_nextNode->m_nextNode->m_nextNode->m_nextNode = head;
+
+		bool isCircular = isCircularLinkedList(head);
+		std::cout << "isCircular = " << isCircular << std::endl;
+	}
+
+	//printLinkList(head);
 }
 
 Node* RemoveEveryKthNode(Node* head, int k)
@@ -242,4 +267,41 @@ Node* RemoveEveryKthNode(Node* head, int k)
 	}
 
 	return head;
+}
+
+Node* ReturnMiddleNode(Node* head) 
+{
+	int length = 0;
+	Node* curNode = head;
+	while (curNode != nullptr)
+	{
+		length++;
+		curNode = curNode->m_nextNode;
+	}
+	
+	int pos = (length / 2 )+ 1;
+	curNode = head; int index = 1;
+	while (curNode != nullptr)
+	{
+		index++;
+		curNode = curNode->m_nextNode;
+		if (index == pos)
+			return curNode;
+	}
+
+	return nullptr;
+}
+
+bool isCircularLinkedList(Node* head)
+{
+	Node* curNode = head;
+	while (curNode != nullptr)
+	{
+		Node* nextNode = curNode->m_nextNode;
+		if (nextNode == head)
+			return true;
+
+		curNode = nextNode;
+	}
+	return false;
 }
