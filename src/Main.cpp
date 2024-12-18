@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "OperatorOverloading.h"
+#include "SinglyLinkedList.h"
+#include "DoublyLinkedList.h"
 
 // Check operator overloading and the copy constuction  activity
 void OperatorOverloading()
@@ -22,15 +24,28 @@ void OperatorOverloading()
 	debug = 1;
 }
 
+
 int main()
 {
-    int load = 1;
+    int load = 2;
 	switch (load)
 	{
 		// Case 1: Operator overloading 
 	case 1:
 	{
 		OperatorOverloading();
+		break;
+	}
+	case 2:
+	{
+		//TestLinkedListInsertionProblems();
+		//TestLinkedListDeletionProblems();
+		TestLinkedListProblems();
+		break;
+	}
+	case 3:
+	{
+		TestDoublyLinkedListInserrtionProblem();
 		break;
 	}
 	default:
