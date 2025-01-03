@@ -5,6 +5,7 @@
 #include "OperatorOverloading.h"
 #include "SinglyLinkedList.h"
 #include "DoublyLinkedList.h"
+#include "SmartPointers.h"
 
 // Check operator overloading and the copy constuction  activity
 void OperatorOverloading()
@@ -27,7 +28,7 @@ void OperatorOverloading()
 
 int main()
 {
-    int load = 2;
+    int load = 4;
 	switch (load)
 	{
 		// Case 1: Operator overloading 
@@ -47,6 +48,11 @@ int main()
 	{
 		TestDoublyLinkedListInserrtionProblem();
 		break;
+	}
+	case 4:
+	{
+		// use of smart pointers
+		UseOfSharedPointer();
 	}
 	default:
 		break;
