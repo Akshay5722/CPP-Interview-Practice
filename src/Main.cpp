@@ -2,10 +2,12 @@
 //
 
 #include <iostream>
+
 #include "OperatorOverloading.h"
 #include "SinglyLinkedList.h"
 #include "DoublyLinkedList.h"
 #include "SmartPointers.h"
+#include "ThreadingOperations.h"
 
 // Check operator overloading and the copy constuction  activity
 void OperatorOverloading()
@@ -28,7 +30,7 @@ void OperatorOverloading()
 
 int main()
 {
-    int load = 4;
+    int load = 5;
 	switch (load)
 	{
 		// Case 1: Operator overloading 
@@ -53,6 +55,12 @@ int main()
 	{
 		// use of smart pointers
 		UseOfSharedPointer();
+	}
+	case 5:
+	{
+		// threading operations
+		// 1. Launcing the thread
+		fizzbuzzGameInOtherThread();
 	}
 	default:
 		break;

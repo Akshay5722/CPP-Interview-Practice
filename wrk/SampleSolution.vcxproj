@@ -23,11 +23,15 @@
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\OperatorOverloading.cpp" />
     <ClCompile Include="..\src\SinglyLinkedList.cpp" />
+    <ClCompile Include="..\src\SmartPointers.cpp" />
+    <ClCompile Include="..\src\ThreadingOperations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\DoublyLinkedList.h" />
     <ClInclude Include="..\src\OperatorOverloading.h" />
     <ClInclude Include="..\src\SinglyLinkedList.h" />
+    <ClInclude Include="..\src\SmartPointers.h" />
+    <ClInclude Include="..\src\ThreadingOperations.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
