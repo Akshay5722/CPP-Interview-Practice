@@ -60,7 +60,19 @@ int main()
 	{
 		// threading operations
 		// 1. Launcing the thread
-		fizzbuzzGameInOtherThread();
+		//fizzbuzzGameInOtherThread();
+
+		//2. Thread handle method
+		//threadHandleOperation();
+
+		//3. threading exeption handling using wrapper calss
+		//handlethreadException();
+
+		//4. Data Races
+		//DataRaces();
+
+		// 5. Data races solved using critical section
+		DataRacesSolvedUsingCriticalSection();
 	}
 	default:
 		break;

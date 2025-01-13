@@ -3,6 +3,7 @@
 #include <thread>
 #include <vector>
 #include <string>
+#include <windows.h>
 #include <iostream>
 
 void ThreadingOperations::operator()(const int& a)
@@ -40,8 +41,8 @@ void FreeBuzzGameFun()
 				std::cout << child << " says" << " buzz" << std::endl;
 			else 
 				std::cout << child << " says " << n << std::endl;
-		}
-		n++;
+			n++;
+		}	
 	}
 
 	// sleep thread for the 5 seconds
@@ -85,4 +86,81 @@ void LaunchingTheThreadsUsingDifferentFunctions()
 	t3.join();
 	t4.join();
 	t5.join();
+}
+
+void threadHandleOperation()
+{
+	std::cout << "Main Thread ID = " << std::this_thread::get_id() << std::endl;
+	int a = 5, b = 6;
+	std::thread thrObj(ThreadingOperations::statFunction, std::ref(a), std::cref(b));
+	std::cout << "Thread Object ID = " << thrObj.get_id() << std::endl;
+	std::cout << "Thread ID = " << std::this_thread::get_id() << std::endl;
+
+	std::cout << "ThreadHandle: " << thrObj.native_handle() << std::endl;
+	thrObj.join();
+}
+
+void handlethreadException()
+{	
+	try
+	{
+		std::thread t1(ThreadingOperations::statFunction, 5, 10);
+		thread_guard thrdGuard(std::move(t1));
+		throw std::exception(); // here destructor of thread_guard called 
+								// and join called over thread object
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "Exception thrown" << std::endl;
+	}
+}
+
+void DataRaces()
+{
+	int val = 0;
+
+	auto fun = [&val]()
+	{
+		for (size_t i = 0; i < 100000; i++)
+		{
+			val++;
+		}
+	};
+
+	std::thread t1(fun);
+	std::thread t2(fun);
+	std::thread t3(fun);
+
+	t1.join();
+	t2.join();
+	t3.join();
+
+	std::cout << val << std::endl;
+}
+
+void DataRacesSolvedUsingCriticalSection()
+{
+	int val = 0;
+	CRITICAL_SECTION cs;
+
+	auto fun = [&val, &cs]()
+	{
+		EnterCriticalSection(&cs);
+		for (size_t i = 0; i < 100000; i++)
+		{
+			val++;
+		}
+		LeaveCriticalSection(&cs);
+	};
+
+	InitializeCriticalSection(&cs);
+	std::thread t1(fun);
+	std::thread t2(fun);
+	std::thread t3(fun);
+
+	t1.join();
+	t2.join();
+	t3.join();
+	DeleteCriticalSection(&cs);
+	std::cout << val << std::endl;
 }
