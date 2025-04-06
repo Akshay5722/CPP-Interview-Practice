@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 
 //https://www.geeksforgeeks.org/smart-pointers-cpp/
 
@@ -34,7 +35,7 @@ public:
 };
 
 // Delcaration of the smart pointer 
-template<class T> class SmartPrt
+template<typename T> class SmartPrt
 {
 
 private:
@@ -48,13 +49,55 @@ public:
 	explicit SmartPrt(T* ptr = nullptr):m_ptr(ptr){}
 
 	// Destructor
-	~SmartPrt() { delete m_ptr; m_ptr = nullptr; }
+	~SmartPrt() 
+	{ 
+		if(m_ptr != nullptr)
+			delete m_ptr; 
+		m_ptr = nullptr; 
+	}
+
+	SmartPrt(const SmartPrt& ) = delete;
+	SmartPrt& operator = (const SmartPrt& ) = delete;
+
+	SmartPrt(SmartPrt&& ptr) noexcept
+	{
+		m_ptr = ptr.m_ptr;
+		ptr.m_ptr = nullptr;
+	}
+
+	SmartPrt& operator = (SmartPrt&& ptr) noexcept
+	{
+		if (this != &ptr)
+		{
+			if (m_ptr != nullptr)
+				delete m_ptr;
+			m_ptr = ptr.m_ptr;
+			ptr.m_ptr = nullptr;
+		}
+		return *this;
+	}
 
 	// overloading dereferencing operator
 	T& operator*() { return *m_ptr; }
 
 	// overloading function call operator
 	T* operator->() { return m_ptr; }
+
+	T* get() const noexcept { return m_ptr; };
+
+	T* release() const noexcept 
+	{ 
+		T* temp = m_ptr;
+		m_ptr = nullptr;
+		return temp;
+	}
+
+	void reset(T* ptr = nullptr)
+	{
+		if (m_ptr != nullptr)
+			delete m_ptr;
+		m_ptr = ptr;
+	}
 
 };
 
@@ -68,9 +111,18 @@ public:
 	{
 		length = l;
 		breadth = b;
+		
 	}
 
-	~TempRectangle(){}
+	~TempRectangle() { 
+		try { 
+			throw std::exception();
+		}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
+		};
+	}
 
 	int area() { return length * breadth; }
 };

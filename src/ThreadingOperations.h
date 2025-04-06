@@ -44,3 +44,4 @@ void handlethreadException();
 void DataRaces();
 
 void DataRacesSolvedUsingCriticalSection();
+void DataRacesSolvedUsingMutex();

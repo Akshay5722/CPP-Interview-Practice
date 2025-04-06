@@ -1,3 +1,4 @@
+
 #include "SmartPointers.h"
 
 void UseOfUniquePointer()
@@ -12,7 +13,7 @@ void UseOfUniquePointer()
 	obj2 = std::move(obj);
 	if (obj2 != nullptr)
 	{
-		std::cout << "Rectangle2 Area = " << obj->area() << std::endl;
+		std::cout << "Rectangle2 Area = " << obj2->area() << std::endl;
 	}
 }
 

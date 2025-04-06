@@ -78,3 +78,7 @@ Node* ReturnMiddleNode(Node* head);
 * Check if the linked list is circular
 */
 bool isCircularLinkedList(Node* head);
+
+Node* RemoveAllOddValueNodes(Node* head);
+
+Node* SortLinkedListByEvenFirstOddNext(Node* head);

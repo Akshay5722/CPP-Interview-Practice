@@ -8,6 +8,7 @@
 #include "DoublyLinkedList.h"
 #include "SmartPointers.h"
 #include "ThreadingOperations.h"
+#include "ArrayProblems.h"
 
 // Check operator overloading and the copy constuction  activity
 void OperatorOverloading()
@@ -37,6 +38,9 @@ int main()
 	case 1:
 	{
 		OperatorOverloading();
+		Base pBase;//new Derived();
+		int a = sizeof(pBase);
+		//delete pBase;
 		break;
 	}
 	case 2:
@@ -72,7 +76,33 @@ int main()
 		//DataRaces();
 
 		// 5. Data races solved using critical section
-		DataRacesSolvedUsingCriticalSection();
+		//DataRacesSolvedUsingCriticalSection();
+
+		// 6. Data races solved using Mutex
+		DataRacesSolvedUsingMutex();
+		break;
+	}
+	case 6:
+	{
+		if (1)
+		{
+			try {
+				TempRectangle* temp = new TempRectangle(10, 5);
+				delete temp;
+			}
+			catch (std::exception &e)
+			{
+				std::cout << e.what();
+				// TODO
+			}
+			catch (...)
+			{
+				std::cout << "Unknown_exception" << std::endl;
+			}
+		}
+
+		std::vector<int> array = { 5, 9, 4,2,8,7,1,3, 11,23,20,16,22,17,15 };
+		SortArray(array);
 	}
 	default:
 		break;

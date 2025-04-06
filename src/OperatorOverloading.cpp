@@ -30,7 +30,7 @@ Box::Box(Box& box)
 	length = box.length;
 }
 
-Box Box::operator = (Box& box)
+Box Box::operator = (const Box& box)
 {
 	// first check whether it is  self
 	if (this != &box)
@@ -44,7 +44,7 @@ Box Box::operator = (Box& box)
 	return *this;
 }
 
-bool Box::operator == (Box& box)
+bool Box::operator == (const Box& box)
 {
 	return ((height != box.height) && (width != box.width) && (length != box.length));
 }

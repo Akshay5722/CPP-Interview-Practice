@@ -5,6 +5,7 @@
 #include <string>
 #include <windows.h>
 #include <iostream>
+#include <mutex>
 
 void ThreadingOperations::operator()(const int& a)
 {
@@ -162,5 +163,32 @@ void DataRacesSolvedUsingCriticalSection()
 	t2.join();
 	t3.join();
 	DeleteCriticalSection(&cs);
+	std::cout << val << std::endl;
+}
+
+void DataRacesSolvedUsingMutex()
+{
+	int val = 0;
+	std::mutex cs;
+
+	auto fun = [&val, &cs]()
+	{
+		std::lock_guard<std::mutex> lock(cs);
+		//cs.lock();
+		for (size_t i = 0; i < 100000; i++)
+		{
+			val++;
+		}
+		//cs.unlock();
+	};
+
+	std::thread t1(fun);
+	std::thread t2(fun);
+	std::thread t3(fun);
+
+	t1.join();
+	t2.join();
+	t3.join();
+
 	std::cout << val << std::endl;
 }

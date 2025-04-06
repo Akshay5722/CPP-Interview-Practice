@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Box
 {
@@ -12,8 +13,9 @@ public:
 	~Box();
 	Box(double& h, double& w, double& len);
 	Box(Box& box);
-	Box operator = (Box& box);
-	bool operator == (Box& box);
+	Box operator = (const Box& box);
+
+	bool operator == (const Box& box);
 };
 
 
@@ -50,5 +52,45 @@ public:
 			object.m_data = nullptr;
 		}
 		return *this;
+	}
+};
+
+
+class Base
+{
+	int a;
+public:
+	Base(): a(0)
+	{
+		std::cout << "Constructor Base \n";
+	}
+
+	virtual void function()
+	{
+		std::cout << "Base Func..\n";
+	}
+
+	~Base() 
+	{
+		std::cout << "Destructor Base\n";
+	}
+};
+
+class Derived : public Base
+{
+public:
+	Derived(): Base()
+	{
+		std::cout << "Constructor Derived\n";
+	}
+
+	void function()
+	{
+		std::cout << "Derived Func..\n";
+	}
+
+	~Derived()
+	{
+		std::cout << "Destructive Derived\n";
 	}
 };

@@ -222,12 +222,14 @@ void TestLinkedListProblems()
 		insertAtEnd(head, 6);
 		insertAtEnd(head, 7);
 		insertAtEnd(head, 8);
+		insertAtEnd(head, 9);
+
 
 		printLinkList(head);
 		//head = RemoveEveryKthNode(head, 3);
 
-		Node* node = ReturnMiddleNode(head);
-		printNodeInLinkList(node);
+		head = SortLinkedListByEvenFirstOddNext(head);
+		printLinkList(head);
 	}
 
 	if (0)
@@ -304,4 +306,68 @@ bool isCircularLinkedList(Node* head)
 		curNode = nextNode;
 	}
 	return false;
+}
+
+Node* RemoveAllOddValueNodes(Node* head)
+{
+	Node* curNode = head;
+	Node* preNode = nullptr;
+	while (curNode != nullptr)
+	{
+		// delete the current node
+		Node* nextNode = curNode->m_nextNode;
+		if ((curNode->m_data) % 2 != 0)
+		{		
+			delete curNode;
+			curNode = nullptr;
+			if (preNode != nullptr)
+				preNode->m_nextNode = nextNode;
+			else
+				head = nextNode;
+		}
+		preNode = curNode;
+		curNode = nextNode;
+	}
+
+	return head;
+}
+
+Node* SortLinkedListByEvenFirstOddNext(Node* head)
+{
+	if (head->m_nextNode == nullptr)
+		return head;
+
+	Node* evenList = nullptr; Node* evenListCur = nullptr;
+	Node* oddList = nullptr; Node* oddCurrent = nullptr;
+	
+	Node* curNode = head;
+	while(curNode != nullptr)
+	{
+		if (curNode->m_data % 2 == 0) // even
+		{
+			if (evenList == nullptr)
+				evenList = curNode;
+			else
+				evenListCur->m_nextNode = curNode;
+
+			evenListCur = curNode;
+		}
+		else // odd
+		{
+			if (oddList == nullptr)
+				oddList = curNode;
+			else
+				oddCurrent->m_nextNode = curNode;
+
+			oddCurrent = curNode;
+		}
+
+		curNode = curNode->m_nextNode;
+	}
+
+	if(evenListCur != nullptr)
+		evenListCur->m_nextNode = oddList;
+
+	head = evenList != nullptr ? evenList : oddList;
+	return head;
 }
